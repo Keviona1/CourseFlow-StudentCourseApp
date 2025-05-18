@@ -11,6 +11,7 @@ public class Student {
     private String email;
     private String password;
 
+
     @OneToOne
     @JoinColumn(name = "schedule_id")
     private Schedulement schedule_Id;

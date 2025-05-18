@@ -12,6 +12,11 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
+    public CourseService(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
+    }
+
+    public CourseService() {}
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
@@ -31,4 +36,6 @@ public class CourseService {
     public void deleteCourse(Long id) {
         courseRepository.deleteById(id);
     }
+
+
 }

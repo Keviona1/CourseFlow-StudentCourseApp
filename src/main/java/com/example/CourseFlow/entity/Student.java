@@ -14,7 +14,7 @@ public class Student {
 
     @OneToOne
     @JoinColumn(name = "schedule_id")
-    private Schedulement schedule_Id;
+    private Schedulement schedule;
 
     public Student() {
     }
@@ -23,7 +23,7 @@ public class Student {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.schedule_Id = schedule_Id;
+        this.schedule = schedule_Id;
     }
 
     public Long getId() {
@@ -58,11 +58,11 @@ public class Student {
         this.password = password;
     }
 
-    public Schedulement getSchedule_Id() {
-        return schedule_Id;
+    public Schedulement getSchedule() {
+        return schedule;
     }
 
-    public void setSchedule_Id(Schedulement schedule_Id) {
-        this.schedule_Id = schedule_Id;
+    public void setSchedule(Schedulement schedule_Id) {
+        this.schedule = schedule_Id;
     }
 }

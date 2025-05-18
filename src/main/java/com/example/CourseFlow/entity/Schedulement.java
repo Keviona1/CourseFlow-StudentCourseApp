@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Course {
+public class Schedulement {
 
     @Id
     private Long id;

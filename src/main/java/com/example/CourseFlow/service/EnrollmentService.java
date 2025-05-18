@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 public class EnrollmentService {
-    @Autowired
     private EnrollmentRepository enrollmentRepository;
     public EnrollmentService(EnrollmentRepository enrollmentRepository) {
         this.enrollmentRepository = enrollmentRepository;

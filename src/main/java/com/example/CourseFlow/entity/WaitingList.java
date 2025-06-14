@@ -1,12 +1,13 @@
 package com.example.CourseFlow.entity;
 
+
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
-
 @Entity
-@Table(name = "enrollments")
-public class Enrollment {
+@Table(name = "waiting_lists")
+public class WaitingList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,18 +21,18 @@ public class Enrollment {
     private Course course;
 
     @Column(nullable = false)
-    private LocalDateTime enrolledAt;
+    private LocalDateTime addedAt;
 
     @Column(nullable = false)
-    private boolean isActive = true;
+    private Integer position;
 
-    public Enrollment() {}
+    public WaitingList() {}
 
-    public Enrollment(Student student, Course course) {
+    public WaitingList(Student student, Course course, Integer position) {
         this.student = student;
         this.course = course;
-        this.enrolledAt = LocalDateTime.now();
-        this.isActive = true;
+        this.position = position;
+        this.addedAt = LocalDateTime.now();
     }
 
     public Long getId() { return id; }
@@ -43,9 +44,9 @@ public class Enrollment {
     public Course getCourse() { return course; }
     public void setCourse(Course course) { this.course = course; }
 
-    public LocalDateTime getEnrolledAt() { return enrolledAt; }
-    public void setEnrolledAt(LocalDateTime enrolledAt) { this.enrolledAt = enrolledAt; }
+    public LocalDateTime getAddedAt() { return addedAt; }
+    public void setAddedAt(LocalDateTime addedAt) { this.addedAt = addedAt; }
 
-    public boolean isActive() { return isActive; }
-    public void setActive(boolean active) { isActive = active; }
+    public Integer getPosition() { return position; }
+    public void setPosition(Integer position) { this.position = position; }
 }

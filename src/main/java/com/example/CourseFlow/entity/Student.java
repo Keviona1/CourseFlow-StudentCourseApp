@@ -1,28 +1,52 @@
 package com.example.CourseFlow.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "students")
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+
+    @NotBlank(message = "Email is required")
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @NotBlank(message = "Name is required")
+    @Column(nullable = false)
+    private String name;
+
+    @NotBlank(message = "Password is required")
+    @Column(nullable = false)
     private String password;
 
+
+
     @OneToOne
-    @JoinColumn(name = "schedule_id")
-    private Schedulement schedule;
+    @JoinColumn(name = "schedulement_id", unique = true)
+    private Schedule schedule;
 
-    public Student() {
-    }
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Enrollment> enrollments = new ArrayList<>();
 
-    public Student(String name, String email, String password, Schedulement schedule_Id) {
+    public Student() {}
+
+    public Student(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.schedule = schedule_Id;
+    }
+
+    public Student(String name, String email, String password, Schedule schedule) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.schedule = schedule;
     }
 
     public Long getId() {
@@ -33,20 +57,20 @@ public class Student {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -57,11 +81,19 @@ public class Student {
         this.password = password;
     }
 
-    public Schedulement getSchedule() {
+    public Schedule getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(Schedulement schedule_Id) {
-        this.schedule = schedule_Id;
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
+    public List<Enrollment> getEnrollments() {
+        return enrollments;
+    }
+
+    public void setEnrollments(List<Enrollment> enrollments) {
+        this.enrollments = enrollments;
     }
 }

@@ -1,43 +1,33 @@
 package com.example.CourseFlow.service;
 
 import com.example.CourseFlow.entity.Admin;
-import com.example.CourseFlow.entity.Student;
 import com.example.CourseFlow.repository.AdminRepository;
-import com.example.CourseFlow.repository.StudentRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Optional;
+
 @Service
+@Transactional
 public class AdminService {
 
     @Autowired
     private AdminRepository adminRepository;
 
-    //    @Autowired
-//    private PasswordEncoder passwordEncoder;
-    // Get all admin
-    public List<Admin> getAllAdmins() {
-        return adminRepository.findAll();
+    public Optional<Admin> getAdminByUsername(String username) {
+        return adminRepository.findByUsername(username);
+    }
+    public Optional<Admin> getAdminByEmail(String email) {
+        return adminRepository.findByEmail(email);
+    }
+    public Admin createAdmin(Admin admin) {
+        return adminRepository.save(admin);
     }
 
-    // Get admin by ID
-    public Admin getAdminById(Long id) {
-        return adminRepository.findById(id).orElse(null);
-    }
-
-    // Save or update admin (hashes password before saving)
-    public void saveAdmin(Admin admin) {
-        // Hash the password before saving
-//        student.setPassword(passwordEncoder.encode(student.getPassword()));
-        adminRepository.save(admin);
-    }
-
-    // Delete a admin
-    public void deleteAdmin(Long id) {
-        adminRepository.deleteById(id);
-
+    public boolean authenticate(String username, String password) {
+        Optional<Admin> admin = getAdminByUsername(username);
+        return admin.isPresent() && admin.get().getPassword().equals(password);
     }
 }
-    // Find by email for login
-
